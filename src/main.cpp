@@ -1,24 +1,24 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <optional>
+
+#include <utility>
+#include <algorithm>
 
 // 0-9 = 48-57
 
-struct Bind
+enum class ElementType
 {
-    Bind(
-        std::string &_elem1,
-        std::string &_operand,
-        std::string &_elem2
-    ) :
-    element1(&_elem1),
-    operand(&_operand),
-    element2(&_elem2)
-    {}
+    Number,
+    Operator
+};
 
-    std::string *element1;
-    std::string *operand;
-    std::string *element2;
+struct Element
+{
+    std::string string;
+    ElementType elementType;
+    unsigned __int64 index;
 };
 
 std::string cleanInput(const std::string &input)
@@ -57,9 +57,10 @@ std::string cleanInput(const std::string &input)
     return clean;
 }
 
-std::vector<std::string> separateElements(const std::string &clean)
+std::vector<std::optional<Element>>
+    formElements(const std::string &clean)
 {
-    std::vector<std::string> elements;
+    std::vector<std::optional<Element>> elements;
 
     int exprLength = 0;
     for (int i = 0; i < clean.length(); ++i)
@@ -78,66 +79,109 @@ std::vector<std::string> separateElements(const std::string &clean)
         {
             if (exprLength > 0)
             {
-                std::string temp = clean.substr(i - exprLength, exprLength);
-                elements.push_back(temp);
+                std::string string = clean.substr(i - exprLength, exprLength);
+                Element elem{string, ElementType::Number, elements.size()};
+                elements.push_back(elem);
                 exprLength = 0;
             }
 
-            std::string temp = clean.substr(i, 1);
-            elements.push_back(temp);
+            std::string string = clean.substr(i, 1);
+            Element elem{string, ElementType::Operator, elements.size()};
+            elements.push_back(elem);
         }
         else if (exprLength > 0)
         {
-            std::string temp = clean.substr(i - exprLength, exprLength);
-            elements.push_back(temp);
+            std::string string = clean.substr(i - exprLength, exprLength);
+            Element elem{string, ElementType::Number, elements.size()};
+            elements.push_back(elem);
             exprLength = 0;
         }
     }
 
     if (exprLength > 0)
     {
-        std::string temp = clean.substr(clean.length() - exprLength, exprLength);
-        elements.push_back(temp);
+        std::string string = clean.substr(clean.length() - exprLength, exprLength);
+        Element elem{string, ElementType::Number, elements.size()};
+        elements.push_back(elem);
     }
 
     return elements;
 }
 
-std::vector<Bind> bindElements(std::vector<std::string> &elements)
+bool isOrdered(std::vector<std::optional<Element>> &elements)
 {
-    std::vector<Bind> binds;
+    ElementType prevType = ElementType::Operator;
 
-    for (int i = 0; i < elements.size(); i+=2)
+    for (int i = 0; i < elements.size(); ++i)
     {
-        if (i < 2)
-            continue;
-        
-        Bind bind(
-            elements[i - 2],
-            elements[i - 1],
-            elements[i]);
+        ElementType currType = elements[i].value().elementType;
 
-        binds.push_back(bind);
+        if (currType == prevType)
+            return false;
+
+        prevType = currType;
     }
 
-    return binds;
+    return true;
 }
+/*
+void calculate(std::vector<std::optional<Element>> &elements)
+{
+    std::optional<Element *> prevNum = std::nullopt;
+    std::optional<Element *> prevOperand = std::nullopt;
 
+    for (int i = 0; i < elements.size(); ++i)
+    {
+        Element *curr;
+
+        if (!elements[i].has_value())
+            continue;
+        curr = &elements[i].value();
+
+        // Calculate
+        if (prevNum.has_value()
+            && prevOperand.has_value()
+            && curr->elementType == ElementType::Number
+        )
+        {
+            std::string operandString = prevOperand.value()->string;
+            if (operandString == "+")
+            {
+                elements[i] = std::stof("12");
+            }
+        }
+
+        // Set elements
+        if (curr->elementType == ElementType::Number)
+            prevNum = curr;
+        else if (curr->elementType == ElementType::Operator)
+            prevOperand = curr;
+    }
+}
+*/
 int main()
 {
-    std::string input = "32/2298.21+sgfgn22";
+    std::string input = "32*2.5+sgfgn22";
 
     std::string clean = cleanInput(input);
-    std::vector<std::string> elements = separateElements(clean);
-    std::vector<Bind> binds = bindElements(elements);
-
-    std::cout << "\nBinds: \n";
-    for (auto &bind : binds)
-    {
-        std::cout << *bind.element1 << std::endl;
-        std::cout << *bind.operand << std::endl;
-        std::cout << *bind.element2 << std::endl << std::endl;
-    }
     
+    std::vector<std::optional<Element>>
+        elements = formElements(clean);
+
+    if (!isOrdered(elements))
+    {
+        throw "Elements out of order";
+        return -1;
+    }
+
+    std::cout << "Original\n";
+    for (int i = 0; i < elements.size(); ++i)
+    {
+        bool kaka = true;
+        if (elements[i].value().elementType == ElementType::Operator)
+            kaka = false;
+        std::cout << elements[i].value().string << " (" << kaka << ")\n";
+    }
+
     return 0;
 }
