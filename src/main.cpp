@@ -3,9 +3,6 @@
 #include <vector>
 #include <optional>
 
-#include <utility>
-#include <algorithm>
-
 // 0-9 = 48-57
 
 enum class ElementType
@@ -124,44 +121,80 @@ bool isOrdered(std::vector<std::optional<Element>> &elements)
 
     return true;
 }
-/*
-void calculate(std::vector<std::optional<Element>> &elements)
+
+void calculate(
+    std::vector<std::optional<Element>> &elements,
+    Element &elemNum1,
+    Element &elemOperand,
+    Element &elemNum2
+)
+{
+    float num1 = std::stof(elemNum1.string);
+    float num2 = std::stof(elemNum2.string);
+
+    float result;
+
+    std::string operandString = elemOperand.string;
+    if (operandString == "+")
+        result = num1 + num2;
+    else if (operandString == "-")
+        result = num1 - num2;
+    else
+    {
+        std::cout << "ERROR!\n";
+        throw "Unsuported operation";
+        return;
+    }
+    
+    elements[elemNum2.index].value().string = std::to_string(result);
+    elements[elemNum1.index] = std::nullopt;
+    elements[elemOperand.index] = std::nullopt;
+}
+
+void calculateElements(
+    std::vector<std::optional<Element>> &elements
+)
 {
     std::optional<Element *> prevNum = std::nullopt;
     std::optional<Element *> prevOperand = std::nullopt;
 
-    for (int i = 0; i < elements.size(); ++i)
-    {
-        Element *curr;
+    int elementsRemaining = 0;
+    do{
+        elementsRemaining = 0;
 
-        if (!elements[i].has_value())
-            continue;
-        curr = &elements[i].value();
-
-        // Calculate
-        if (prevNum.has_value()
-            && prevOperand.has_value()
-            && curr->elementType == ElementType::Number
-        )
+        for (int i = 0; i < elements.size(); ++i)
         {
-            std::string operandString = prevOperand.value()->string;
-            if (operandString == "+")
-            {
-                elements[i] = std::stof("12");
-            }
+            Element *curr;
+
+            if (!elements[i].has_value())
+                continue;
+            elementsRemaining++;
+
+            curr = &elements[i].value();
+
+            // Calculate
+            if (prevNum.has_value()
+                && prevOperand.has_value()
+                && curr->elementType == ElementType::Number
+            )
+            calculate(elements, *prevNum.value(), *prevOperand.value(), *curr);
+
+            // Set elements
+            if (curr->elementType == ElementType::Number)
+                prevNum = curr;
+            else if (curr->elementType == ElementType::Operator)
+                prevOperand = curr;
         }
 
-        // Set elements
-        if (curr->elementType == ElementType::Number)
-            prevNum = curr;
-        else if (curr->elementType == ElementType::Operator)
-            prevOperand = curr;
-    }
+        prevNum = std::nullopt;
+        prevOperand = std::nullopt;
+
+    } while (elementsRemaining > 1);
 }
-*/
+
 int main()
 {
-    std::string input = "32*2.5+sgfgn22";
+    std::string input = "110-10";
 
     std::string clean = cleanInput(input);
     
@@ -174,14 +207,24 @@ int main()
         return -1;
     }
 
+    calculateElements(elements);
+
     std::cout << "Original\n";
     for (int i = 0; i < elements.size(); ++i)
     {
+        if (!elements[i].has_value())
+        {
+            std::cout << "TEXT" << std::endl;
+            continue;
+        }
+
         bool kaka = true;
         if (elements[i].value().elementType == ElementType::Operator)
             kaka = false;
         std::cout << elements[i].value().string << " (" << kaka << ")\n";
     }
+
+
 
     return 0;
 }
