@@ -1,6 +1,6 @@
 # Instantulator
 
-Instantulator is an unorthodox calculator that instantly returns the result without having to press a "=" button.
+Instantulator is a calculator that instantly returns the result without having to press a "=" button.
 Feed the Instantulator a single string input and its algorithm will return you the result dynamically as you type.
 The Instantulator currently only supports addition and subtraction.
 
@@ -9,9 +9,11 @@ The Instantulator currently only supports addition and subtraction.
 - C++20
 - CMake
 - vcpkg
+- OpenGL
 
 ## Dependencies
 
+- glad
 - GLFW
 - ImGui
 
