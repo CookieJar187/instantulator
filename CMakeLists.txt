@@ -24,6 +24,7 @@ add_executable(Instantulator
 
     src/ui/ui_manager/ui_manager.cpp
     src/ui/screens/main_screen/main_screen.cpp
+    src/ui/screens/help_screen/help_screen.cpp
 )
 
 target_include_directories(Instantulator PRIVATE
@@ -33,6 +34,7 @@ target_include_directories(Instantulator PRIVATE
 
     src/ui/ui_manager
     src/ui/screens/main_screen
+    src/ui/screens/help_screen
 )
 
 target_link_libraries(Instantulator PRIVATE

@@ -38,5 +38,5 @@ void App::calculateElements(
         prevNum = std::nullopt;
         prevOperand = std::nullopt;
 
-    } while (elementsRemaining > 1);
+    } while (elementsRemaining > 2);
 }

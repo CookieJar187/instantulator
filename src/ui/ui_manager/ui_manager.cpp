@@ -6,7 +6,7 @@
 
 #include "ui_manager.h"
 
-int UiManager::init(GLFWwindow* window, AppFsm* fsm)
+int UiManager::init(GLFWwindow* window, App *app, AppFsm* fsm)
 {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -25,8 +25,10 @@ int UiManager::init(GLFWwindow* window, AppFsm* fsm)
         return 1;
     }
 
+    UiManager::app = app;
     UiManager::fsm = fsm;
-    UiManager::mainScreen = new MainScreen(*fsm);
+    UiManager::mainScreen = new MainScreen(*app, *fsm);
+    UiManager::helpScreen = new HelpScreen(*app, *fsm);
     
     return 0;
 }
@@ -38,9 +40,16 @@ void UiManager::buildUi()
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
+    ImGuiStyle &style = ImGui::GetStyle();
+    style.Colors[ImGuiCol_WindowBg] = ImVec4(0.06f, 0.06f, 0.06f, 0.94f);
+    style.Colors[ImGuiCol_Text] = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
+    style.Colors[ImGuiCol_CheckMark] = ImVec4(0.26f, 0.59f, 0.98f, 1.0f);
+
     // Build ui
     if (fsm->isState(AppState::Main))
         UiManager::mainScreen->build();
+    else if (fsm->isState(AppState::Help))
+        UiManager::helpScreen->build();
     else
         std::cerr << "UiManager: unsuported state" << std::endl;
 }

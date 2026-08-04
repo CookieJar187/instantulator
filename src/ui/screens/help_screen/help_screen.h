@@ -3,10 +3,10 @@
 #include "app.h"
 #include "app_fsm.h"
 
-class MainScreen
+class HelpScreen
 {
 public:
-    MainScreen(App &app, AppFsm &fsm);
+    HelpScreen(App &app, AppFsm &fsm);
     void build();
 
 private:

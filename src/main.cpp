@@ -58,7 +58,7 @@ int main()
     }
 
     // Setup
-    uiManager.init(window, &fsm);
+    uiManager.init(window, &app, &fsm);
 
     while (!glfwWindowShouldClose(window))
     {

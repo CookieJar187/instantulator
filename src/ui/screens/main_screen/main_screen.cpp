@@ -1,17 +1,23 @@
+#include <string>
+
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
+#include <imgui_stdlib.h>
 
 #include "main_screen.h"
 
-MainScreen::MainScreen(AppFsm &fsm)
+MainScreen::MainScreen(App &app, AppFsm &fsm)
 {
+    this->app = &app;
     this->fsm = &fsm;
 }
 
-void MainScreen::build() const
+void MainScreen::build()
 {
-    static char inputBuffer[256] = "";
-    static char outputBuffer[36] = "";
+    static std::string inputString = "";
+
+    //strcpy(inputBuffer, currInput.c_str());
+    //strcpy(outputBuffer, currOutput.c_str());
 
     ImGuiIO& io = ImGui::GetIO();
     float width = io.DisplaySize.x;
@@ -61,8 +67,14 @@ void MainScreen::build() const
     ImGui::InputTextWithHint(
         "##Input",
         "Input arithmetics...",
-        inputBuffer,
-        IM_ARRAYSIZE(inputBuffer));
+        &inputString
+    );
+
+    if (inputString != currInput)
+    {
+        currOutput = app->find(inputString);;
+        currInput = inputString;
+    }
 
     ImGui::SetCursorPosY(height * 0.3);
     ImGui::SetCursorPosX(width * 0.68);
@@ -70,8 +82,7 @@ void MainScreen::build() const
     ImGui::InputTextWithHint(
         "##Output",
         "Result...",
-        outputBuffer,
-        IM_ARRAYSIZE(outputBuffer),
+        &currOutput,
         ImGuiInputTextFlags_ReadOnly);
 
     ImGui::End();
