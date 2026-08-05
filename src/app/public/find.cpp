@@ -23,10 +23,7 @@ std::string App::find(std::string &input)
 
             int dotPos = stringResult.find(".000");
             if (dotPos != std::string::npos)
-            {
                 stringResult = stringResult.substr(0, dotPos);
-                std::cout << "action\n";
-            }
 
             return stringResult;
         }

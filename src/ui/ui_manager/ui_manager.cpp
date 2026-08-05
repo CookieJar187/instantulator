@@ -6,7 +6,7 @@
 
 #include "ui_manager.h"
 
-int UiManager::init(GLFWwindow* window, App *app, AppFsm* fsm)
+int UiManager::init(GLFWwindow* window, App *app, AppFsm* fsm, Settings* settings)
 {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -14,7 +14,7 @@ int UiManager::init(GLFWwindow* window, App *app, AppFsm* fsm)
     ImGuiIO& io = ImGui::GetIO();
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
 
-    ImGui::StyleColorsDark();
+    ImFont* myCustomFont = io.Fonts->AddFontFromFileTTF("src/assets/Helvetica.ttf", 12.0f);
 
     if (!ImGui_ImplGlfw_InitForOpenGL(window, true)) {
         std::cerr << "Failed to initialize ImgGui GLFW backend" << std::endl;
@@ -27,8 +27,10 @@ int UiManager::init(GLFWwindow* window, App *app, AppFsm* fsm)
 
     UiManager::app = app;
     UiManager::fsm = fsm;
+    UiManager::settings = settings;
     UiManager::mainScreen = new MainScreen(*app, *fsm);
     UiManager::helpScreen = new HelpScreen(*app, *fsm);
+    UiManager::settingsScreen = new SettingsScreen(*app, *fsm, *settings);
     
     return 0;
 }
@@ -50,6 +52,8 @@ void UiManager::buildUi()
         UiManager::mainScreen->build();
     else if (fsm->isState(AppState::Help))
         UiManager::helpScreen->build();
+    else if (fsm->isState(AppState::Settings))
+        UiManager::settingsScreen->build();
     else
         std::cerr << "UiManager: unsuported state" << std::endl;
 }

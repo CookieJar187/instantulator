@@ -8,6 +8,7 @@ find_package(OpenGL REQUIRED)
 find_package(glfw3 CONFIG REQUIRED)
 find_package(glad CONFIG REQUIRED)
 find_package(imgui CONFIG REQUIRED)
+find_package(nlohmann_json CONFIG REQUIRED)
 
 add_executable(Instantulator
     src/main.cpp
@@ -25,6 +26,12 @@ add_executable(Instantulator
     src/ui/ui_manager/ui_manager.cpp
     src/ui/screens/main_screen/main_screen.cpp
     src/ui/screens/help_screen/help_screen.cpp
+    src/ui/screens/settings_screen/settings_screen.cpp
+
+    src/settings/settings_load.cpp
+    src/settings/settings_save.cpp
+    src/settings/settings_set.cpp
+    src/settings/settings_get.cpp
 )
 
 target_include_directories(Instantulator PRIVATE
@@ -35,10 +42,14 @@ target_include_directories(Instantulator PRIVATE
     src/ui/ui_manager
     src/ui/screens/main_screen
     src/ui/screens/help_screen
+    src/ui/screens/settings_screen
+
+    src/settings
 )
 
 target_link_libraries(Instantulator PRIVATE
     glfw
     glad::glad
     imgui::imgui
+    nlohmann_json::nlohmann_json
 )

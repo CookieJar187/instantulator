@@ -3,27 +3,20 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <nlohmann/json.hpp>
 
 #include "app.h"
 #include "app_fsm.h"
 #include "ui_manager.h"
+#include "settings.h"
 
 int main()
 {
-    /*
-    App app{};
-
-    std::cout << "Please input the equation\n";
-    std::string input;
-    std::cin >> input;
-
-    std::string result = app.find(input);
-    std::cout << result << std::endl;
-    */
-
     App app;
     AppFsm fsm;
     UiManager uiManager;
+    Settings settings;
+    settings.load();
 
     if (!glfwInit())
     {
@@ -58,7 +51,7 @@ int main()
     }
 
     // Setup
-    uiManager.init(window, &app, &fsm);
+    uiManager.init(window, &app, &fsm, &settings);
 
     while (!glfwWindowShouldClose(window))
     {

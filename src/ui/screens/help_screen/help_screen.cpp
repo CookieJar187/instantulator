@@ -36,11 +36,11 @@ void HelpScreen::build()
 
     //ImGui::SetCursorPosY(height * 0.35f);
     
-    const char* titleText = "INSTANTULATOR | SETTINGS";
+    const char* titleText = "INSTANTULATOR   |   HELP";
     ImGui::TextUnformatted(titleText);
 
     ImGui::SetCursorPosY(0);
-    ImGui::SetCursorPosX((width - btnSize.x));
+    ImGui::SetCursorPosX((width - btnSize.x) * 0.95);
     if (ImGui::Button("<", btnSize)) {
         fsm->setState(AppState::Main);
     }
