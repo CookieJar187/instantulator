@@ -8,15 +8,15 @@
 #include "app.h"
 #include "app_fsm.h"
 #include "ui_manager.h"
-#include "settings.h"
+#include "data.h"
 
 int main()
 {
     App app;
     AppFsm fsm;
     UiManager uiManager;
-    Settings settings;
-    settings.load();
+    Data data;
+    data.storage.load();
 
     if (!glfwInit())
     {
@@ -24,7 +24,6 @@ int main()
         return 1;
     }
 
-    glfwWindowHint(GLFW_FLOATING, GLFW_TRUE);
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -51,7 +50,12 @@ int main()
     }
 
     // Setup
-    uiManager.init(window, &app, &fsm, &settings);
+    uiManager.init(window, &app, &fsm);
+
+    // Data stuff
+    data.runtime.alwaysOnTop = true;
+    data.storage.save();
+    data.applier.applySettings();
 
     while (!glfwWindowShouldClose(window))
     {

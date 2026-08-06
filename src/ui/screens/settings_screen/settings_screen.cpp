@@ -8,11 +8,10 @@
 
 #include "settings_screen.h"
 
-SettingsScreen::SettingsScreen(App &app, AppFsm &fsm, Settings &settings)
+SettingsScreen::SettingsScreen(App &app, AppFsm &fsm)
 {
     this->app = &app;
     this->fsm = &fsm;
-    this->settings = &settings;
 }
 
 void SettingsScreen::build()

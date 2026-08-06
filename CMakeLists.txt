@@ -28,10 +28,8 @@ add_executable(Instantulator
     src/ui/screens/help_screen/help_screen.cpp
     src/ui/screens/settings_screen/settings_screen.cpp
 
-    src/settings/settings_load.cpp
-    src/settings/settings_save.cpp
-    src/settings/settings_set.cpp
-    src/settings/settings_get.cpp
+    src/data/storage/storage.cpp
+    src/data/applier/applier.cpp
 )
 
 target_include_directories(Instantulator PRIVATE
@@ -44,7 +42,10 @@ target_include_directories(Instantulator PRIVATE
     src/ui/screens/help_screen
     src/ui/screens/settings_screen
 
-    src/settings
+    src/data
+    src/data/runtime
+    src/data/storage
+    src/data/applier
 )
 
 target_link_libraries(Instantulator PRIVATE
