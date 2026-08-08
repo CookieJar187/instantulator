@@ -2,9 +2,9 @@
 
 #include <cmath>
 
-#include "app.h"
+#include "algorithm.h"
 
-void App::calculate(
+void Algorithm::calculate(
     std::vector<std::optional<Element>> &elements,
     Element &elemNum1,
     Element &elemOperand,

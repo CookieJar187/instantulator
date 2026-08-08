@@ -1,11 +1,13 @@
-#include "app.h"
+#include "algorithm.h"
 
-std::string App::find(std::string &input)
+std::optional<std::string> Algorithm::find(std::string &input)
 {
-    std::string clean = cleanInput(input);
+    std::optional<std::string> clean = cleanInput(input);
+    if (!clean.has_value())
+        return std::nullopt;
     
     std::vector<std::optional<Element>>
-        elements = formElements(clean);
+        elements = formElements(clean.value());
     
     if (!isOrdered(elements))
         throw "Elements out of order";

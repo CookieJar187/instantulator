@@ -13,13 +13,13 @@ find_package(nlohmann_json CONFIG REQUIRED)
 add_executable(Instantulator
     src/main.cpp
 
-    src/app/public/find.cpp
+    src/algorithm/public/find.cpp
 
-    src/app/private/clean_input.cpp
-    src/app/private/form_elements.cpp
-    src/app/private/is_ordered.cpp
-    src/app/private/calculate.cpp
-    src/app/private/calculate_elements.cpp
+    src/algorithm/private/clean_input.cpp
+    src/algorithm/private/form_elements.cpp
+    src/algorithm/private/is_ordered.cpp
+    src/algorithm/private/calculate.cpp
+    src/algorithm/private/calculate_elements.cpp
 
     src/app_fsm/app_fsm.cpp
 
@@ -33,7 +33,7 @@ add_executable(Instantulator
 )
 
 target_include_directories(Instantulator PRIVATE
-    src/app
+    src/algorithm
 
     src/app_fsm
 

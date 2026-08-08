@@ -8,7 +8,7 @@
 
 #include "settings_screen.h"
 
-SettingsScreen::SettingsScreen(App &app, AppFsm &fsm, Data &data)
+SettingsScreen::SettingsScreen(Algorithm &app, AppFsm &fsm, Data &data)
 {
     this->app = &app;
     this->fsm = &fsm;

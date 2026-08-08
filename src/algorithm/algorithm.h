@@ -5,11 +5,11 @@
 #include <vector>
 #include <optional>
 
-class App
+class Algorithm
 {
 public:
 
-    std::string find(std::string &input);
+    std::optional<std::string> find(std::string &input);
 
 private:
     enum class ElementType
@@ -25,7 +25,7 @@ private:
         unsigned __int64 index;
     };
 
-    std::string cleanInput(const std::string &input);
+    std::optional<std::string> cleanInput(const std::string &input);
     std::vector<std::optional<Element>> formElements(const std::string &clean);
     bool isOrdered(std::vector<std::optional<Element>> &elements);
 

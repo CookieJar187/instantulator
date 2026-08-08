@@ -5,14 +5,14 @@
 #include <GLFW/glfw3.h>
 #include <nlohmann/json.hpp>
 
-#include "app.h"
+#include "algorithm.h"
 #include "app_fsm.h"
 #include "ui_manager.h"
 #include "data.h"
 
 int main()
 {
-    App app;
+    Algorithm app;
     AppFsm fsm;
     UiManager uiManager;
     Data data;

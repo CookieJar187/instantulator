@@ -6,7 +6,7 @@
 
 #include "main_screen.h"
 
-MainScreen::MainScreen(App &app, AppFsm &fsm)
+MainScreen::MainScreen(Algorithm &app, AppFsm &fsm)
 {
     this->app = &app;
     this->fsm = &fsm;
@@ -72,7 +72,12 @@ void MainScreen::build()
 
     if (inputString != currInput)
     {
-        currOutput = app->find(inputString);;
+        std::optional<std::string> output = app->find(inputString);
+        if (!output.has_value())
+            currOutput = "";
+        else
+            currOutput = output.value();
+            
         currInput = inputString;
     }
 

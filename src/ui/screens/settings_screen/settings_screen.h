@@ -1,17 +1,17 @@
 #pragma once
 
-#include "app.h"
+#include "algorithm.h"
 #include "app_fsm.h"
 #include "data.h"
 
 class SettingsScreen
 {
 public:
-    SettingsScreen(App &app, AppFsm &fsm, Data &data);
+    SettingsScreen(Algorithm &app, AppFsm &fsm, Data &data);
     void build();
 
 private:
-    App *app;
+    Algorithm *app;
     AppFsm *fsm;
     Data *data;
 

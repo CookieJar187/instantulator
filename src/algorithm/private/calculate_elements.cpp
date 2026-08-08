@@ -1,6 +1,6 @@
-#include "app.h"
+#include "algorithm.h"
 
-void App::calculateElements(
+void Algorithm::calculateElements(
     std::vector<std::optional<Element>> &elements
 )
 {

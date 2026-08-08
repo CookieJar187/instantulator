@@ -6,7 +6,7 @@
 
 #include "ui_manager.h"
 
-int UiManager::init(GLFWwindow* window, App *app, AppFsm* fsm, Data *data)
+int UiManager::init(GLFWwindow* window, Algorithm *app, AppFsm* fsm, Data *data)
 {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();

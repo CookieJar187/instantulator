@@ -3,7 +3,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "app.h"
+#include "algorithm.h"
 #include "app_fsm.h"
 #include "data.h"
 
@@ -14,7 +14,7 @@
 class UiManager
 {   
 private:
-    App *app;
+    Algorithm *app;
     AppFsm *fsm;
     Data *data;
 
@@ -23,7 +23,7 @@ private:
     SettingsScreen *settingsScreen;
 
 public:
-    int init(GLFWwindow* window, App *app, AppFsm* fsm, Data* data);
+    int init(GLFWwindow* window, Algorithm *app, AppFsm* fsm, Data* data);
     void buildUi();
     void drawUi();
     void destroyUi();

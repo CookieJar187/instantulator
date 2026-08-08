@@ -1,6 +1,6 @@
-#include "app.h"
+#include "algorithm.h"
 
-bool App::isOrdered(std::vector<std::optional<Element>> &elements)
+bool Algorithm::isOrdered(std::vector<std::optional<Element>> &elements)
 {
     ElementType prevType = ElementType::Operator;
 

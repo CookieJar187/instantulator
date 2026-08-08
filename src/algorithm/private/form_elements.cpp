@@ -1,7 +1,7 @@
-#include "app.h"
+#include "algorithm.h"
 
-std::vector<std::optional<App::Element>>
-    App::formElements(const std::string &clean)
+std::vector<std::optional<Algorithm::Element>>
+    Algorithm::formElements(const std::string &clean)
 {
     std::vector<std::optional<Element>> elements;
 

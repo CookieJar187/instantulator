@@ -6,7 +6,7 @@
 
 #include "help_screen.h"
 
-HelpScreen::HelpScreen(App &app, AppFsm &fsm)
+HelpScreen::HelpScreen(Algorithm &app, AppFsm &fsm)
 {
     this->app = &app;
     this->fsm = &fsm;

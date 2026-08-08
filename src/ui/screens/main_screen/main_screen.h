@@ -1,16 +1,16 @@
 #pragma once
 
-#include "app.h"
+#include "algorithm.h"
 #include "app_fsm.h"
 
 class MainScreen
 {
 public:
-    MainScreen(App &app, AppFsm &fsm);
+    MainScreen(Algorithm &app, AppFsm &fsm);
     void build();
 
 private:
-    App *app;
+    Algorithm *app;
     AppFsm *fsm;
 
     std::string currInput = "";

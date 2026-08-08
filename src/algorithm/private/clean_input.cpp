@@ -1,6 +1,6 @@
-#include "app.h"
+#include "algorithm.h"
 
-std::string App::cleanInput(const std::string &input)
+std::optional<std::string> Algorithm::cleanInput(const std::string &input)
 {
     std::string clean;
 
@@ -19,11 +19,18 @@ std::string App::cleanInput(const std::string &input)
         {
             exprLength++;
         }
-        else if (exprLength > 0)
+        else if (currChar == ' ')
         {
-            std::string temp = input.substr(i - exprLength, exprLength);
-            clean += temp;
-            exprLength = 0;
+            if (exprLength > 0)
+            {
+                std::string temp = input.substr(i - exprLength, exprLength);
+                clean += temp;
+                exprLength = 0;
+            }
+        }
+        else
+        {
+            return std::nullopt;
         }
     }
 
