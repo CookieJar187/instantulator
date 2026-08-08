@@ -14,56 +14,103 @@ Applier::Applier(Runtime &runtime)
     this->runtime = &runtime;
 }
 
-void Applier::applySettings()
+void Applier::setWindow(GLFWwindow *window)
 {
-    std::cout << "changed made\n";
+    this->window = window;
+}
 
-    // glfw
-    {
-        bool alwaysOnTop = runtime->alwaysOnTop;
+void Applier::applyWindowHints() const
+{
+    bool alwaysOnTop = runtime->alwaysOnTop;
+    glfwWindowHint(GLFW_FLOATING, (alwaysOnTop) ? GLFW_TRUE : GLFW_FALSE);
+}
 
-        if (alwaysOnTop)
-        {
-            glfwWindowHint(GLFW_FLOATING, GLFW_TRUE);
-            std::cout << "always on\n";
-        }
-        else
-        {
-            glfwWindowHint(GLFW_FLOATING, GLFW_FALSE);
-            std::cout << "always off\n";
-        }
-            
-    }
+void Applier::applyWindowAttribs() const
+{
+    bool alwaysOnTop = runtime->alwaysOnTop;
+    glfwSetWindowAttrib(window, GLFW_FLOATING, (alwaysOnTop) ? GLFW_TRUE : GLFW_FALSE);
+}
 
-    // ImGui
-    {
-        Color4 windowBgColor = runtime->windowBgColor;
-        Color4 textColor = runtime->textColor;
-        Color4 checkMarkColor = runtime->checkMarkColor;
+void Applier::applyImGui() const
+{
+    Color3 windowBgColor = runtime->windowBgColor;
+    Color3 textColor = runtime->textColor;
+    Color3 checkMarkColor = runtime->checkMarkColor;
+    Color3 frameBgColor = runtime->frameBgColor;
+    Color3 buttonColor = runtime->buttonColor;
+    
+    ImGuiStyle &style = ImGui::GetStyle();
 
-        ImGuiStyle &style = ImGui::GetStyle();
+    style.Colors[ImGuiCol_WindowBg] = ImVec4(
+        windowBgColor.x,
+        windowBgColor.y,
+        windowBgColor.z,
+        0.94f
+    );
 
-        style.Colors[ImGuiCol_WindowBg] = ImVec4(
-            windowBgColor.x,
-            windowBgColor.y,
-            windowBgColor.z,
-            windowBgColor.a
-        );
+    // Text
+    style.Colors[ImGuiCol_Text] = ImVec4(
+        textColor.x,
+        textColor.y,
+        textColor.z,
+        1.0f
+    );
+    style.Colors[ImGuiCol_TextDisabled] = ImVec4(
+        textColor.x,
+        textColor.y,
+        textColor.z,
+        0.5f
+    );
 
-        style.Colors[ImGuiCol_Text] = ImVec4(
-            textColor.x,
-            textColor.y,
-            textColor.z,
-            textColor.a
-        );
+    // Frame & Checkbox
+    style.Colors[ImGuiCol_CheckMark] = ImVec4(
+        checkMarkColor.x,
+        checkMarkColor.y,
+        checkMarkColor.z,
+        1.0f
+    );
+    style.Colors[ImGuiCol_CheckboxSelectedBg] = ImVec4(
+        frameBgColor.x,
+        frameBgColor.y,
+        frameBgColor.z,
+        0.54f
+    );
+    style.Colors[ImGuiCol_FrameBg] = ImVec4(
+        frameBgColor.x,
+        frameBgColor.y,
+        frameBgColor.z,
+        0.54f
+    );
+    style.Colors[ImGuiCol_FrameBgHovered] = ImVec4(
+        frameBgColor.x,
+        frameBgColor.y,
+        frameBgColor.z,
+        1.0f
+    );
+    style.Colors[ImGuiCol_FrameBgActive] = ImVec4(
+        frameBgColor.x,
+        frameBgColor.y,
+        frameBgColor.z,
+        0.2f
+    );
 
-        style.Colors[ImGuiCol_CheckMark] = ImVec4(
-            checkMarkColor.x,
-            checkMarkColor.y,
-            checkMarkColor.z,
-            checkMarkColor.a
-        );
-
-    }
-
+    // Button
+    style.Colors[ImGuiCol_Button] = ImVec4(
+        buttonColor.x,
+        buttonColor.y,
+        buttonColor.z,
+        0.40f
+    );
+    style.Colors[ImGuiCol_ButtonHovered] = ImVec4(
+        buttonColor.x,
+        buttonColor.y,
+        buttonColor.z,
+        1.0f
+    );
+    style.Colors[ImGuiCol_ButtonActive] = ImVec4(
+        buttonColor.x,
+        buttonColor.y,
+        buttonColor.z,
+        0.20f
+    );
 }

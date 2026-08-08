@@ -2,18 +2,23 @@
 
 #include "app.h"
 #include "app_fsm.h"
+#include "data.h"
 
 class SettingsScreen
 {
 public:
-    SettingsScreen(App &app, AppFsm &fsm);
+    SettingsScreen(App &app, AppFsm &fsm, Data &data);
     void build();
 
 private:
     App *app;
     AppFsm *fsm;
+    Data *data;
 
-    float currWindowBgColor[4] = {1.0f, 0.0f, 0.0f, 1.0f};
-    float currTextColor[4] = {1.0f, 0.0f, 0.0f, 1.0f};
-    float currCheckMarkColor[4] = {1.0f, 0.0f, 0.0f, 1.0f};
+    bool currAlwaysOnTop;
+    Color3 currWindowBgColor;
+    Color3 currTextColor;
+    Color3 currCheckMarkColor;
+    Color3 currFrameBgColor;
+    Color3 currButtonColor;
 };

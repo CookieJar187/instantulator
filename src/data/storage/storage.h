@@ -13,9 +13,11 @@ private:
 
     std::string default_json = R"({
         "AlwaysOnTop" : false,
-        "WindowBgColor" : {"x" : 0.06, "y" : 0.06, "z" : 0.06, "a" : 0.94},
-        "TextColor" : {"x" : 1.0, "y" : 1.0, "z" : 1.0, "a" : 1.0},
-        "CheckMarkColor" : {"x" : 0.26, "y" : 0.59, "z" : 0.98, "a" : 1.0}
+        "WindowBgColor" : {"x" : 0.06, "y" : 0.06, "z" : 0.06},
+        "TextColor" : {"x" : 1.0, "y" : 1.0, "z" : 1.0},
+        "CheckMarkColor" : {"x" : 0.26, "y" : 0.59, "z" : 0.98},
+        "FrameBgColor" : {"x" : 0.16, "y" : 0.29, "z" : 0.48},
+        "ButtonColor" : {"x" : 0.26, "y" : 0.59, "z" : 0.98}
     })";
 
     void runtimeToConfig();

@@ -17,17 +17,22 @@ void Storage::runtimeToConfig()
     config["WindowBgColor"]["x"] = runtime->windowBgColor.x;
     config["WindowBgColor"]["y"] = runtime->windowBgColor.y;
     config["WindowBgColor"]["z"] = runtime->windowBgColor.z;
-    config["WindowBgColor"]["a"] = runtime->windowBgColor.a;
 
     config["TextColor"]["x"] = runtime->textColor.x;
     config["TextColor"]["y"] = runtime->textColor.y;
     config["TextColor"]["z"] = runtime->textColor.z;
-    config["TextColor"]["a"] = runtime->textColor.a;
 
     config["CheckMarkColor"]["x"] = runtime->checkMarkColor.x;
     config["CheckMarkColor"]["y"] = runtime->checkMarkColor.y;
     config["CheckMarkColor"]["z"] = runtime->checkMarkColor.z;
-    config["CheckMarkColor"]["a"] = runtime->checkMarkColor.a;
+
+    config["FrameBgColor"]["x"] = runtime->frameBgColor.x;
+    config["FrameBgColor"]["y"] = runtime->frameBgColor.y;
+    config["FrameBgColor"]["z"] = runtime->frameBgColor.z;
+
+    config["ButtonColor"]["x"] = runtime->buttonColor.x;
+    config["ButtonColor"]["y"] = runtime->buttonColor.y;
+    config["ButtonColor"]["z"] = runtime->buttonColor.z;
 }
 
 void Storage::configToRuntime()
@@ -37,17 +42,22 @@ void Storage::configToRuntime()
     runtime->windowBgColor.x = config["WindowBgColor"]["x"];
     runtime->windowBgColor.y = config["WindowBgColor"]["y"];
     runtime->windowBgColor.z = config["WindowBgColor"]["z"];
-    runtime->windowBgColor.a = config["WindowBgColor"]["a"];
 
     runtime->textColor.x = config["TextColor"]["x"];
     runtime->textColor.y = config["TextColor"]["y"];
     runtime->textColor.z = config["TextColor"]["z"];
-    runtime->textColor.a = config["TextColor"]["a"];
 
     runtime->checkMarkColor.x = config["CheckMarkColor"]["x"];
     runtime->checkMarkColor.y = config["CheckMarkColor"]["y"];
     runtime->checkMarkColor.z = config["CheckMarkColor"]["z"];
-    runtime->checkMarkColor.a = config["CheckMarkColor"]["a"];
+
+    runtime->frameBgColor.x = config["FrameBgColor"]["x"];
+    runtime->frameBgColor.y = config["FrameBgColor"]["y"];
+    runtime->frameBgColor.z = config["FrameBgColor"]["z"];
+
+    runtime->buttonColor.x = config["ButtonColor"]["x"];
+    runtime->buttonColor.y = config["ButtonColor"]["y"];
+    runtime->buttonColor.z = config["ButtonColor"]["z"];
 }
 
 bool Storage::load()

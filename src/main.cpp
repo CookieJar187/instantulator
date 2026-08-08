@@ -24,12 +24,13 @@ int main()
         return 1;
     }
 
-    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+    data.applier.applyWindowHints();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     GLFWwindow *window = glfwCreateWindow(400, 100, "Instantulator", nullptr, nullptr);
+    data.applier.setWindow(window);
 
     if (!window)
     {
@@ -50,12 +51,8 @@ int main()
     }
 
     // Setup
-    uiManager.init(window, &app, &fsm);
-
-    // Data stuff
-    data.runtime.alwaysOnTop = true;
-    data.storage.save();
-    data.applier.applySettings();
+    uiManager.init(window, &app, &fsm, &data);
+    data.applier.applyImGui();
 
     while (!glfwWindowShouldClose(window))
     {
@@ -71,6 +68,8 @@ int main()
         if (fsm.getState() == AppState::Quit)
             break;
     }
+    data.storage.save();
+
     uiManager.destroyUi();
 
     glfwDestroyWindow(window);

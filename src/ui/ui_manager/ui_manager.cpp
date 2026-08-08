@@ -6,7 +6,7 @@
 
 #include "ui_manager.h"
 
-int UiManager::init(GLFWwindow* window, App *app, AppFsm* fsm)
+int UiManager::init(GLFWwindow* window, App *app, AppFsm* fsm, Data *data)
 {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -27,9 +27,10 @@ int UiManager::init(GLFWwindow* window, App *app, AppFsm* fsm)
 
     UiManager::app = app;
     UiManager::fsm = fsm;
+    UiManager::data = data;
     UiManager::mainScreen = new MainScreen(*app, *fsm);
     UiManager::helpScreen = new HelpScreen(*app, *fsm);
-    UiManager::settingsScreen = new SettingsScreen(*app, *fsm);
+    UiManager::settingsScreen = new SettingsScreen(*app, *fsm, *data);
     
     return 0;
 }

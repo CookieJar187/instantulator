@@ -1,9 +1,8 @@
 #pragma once
 
-struct Color4
+struct Color3
 {
     float x;
     float y;
     float z;
-    float a;
 };
